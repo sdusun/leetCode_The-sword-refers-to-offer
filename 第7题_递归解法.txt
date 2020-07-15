@@ -1,0 +1,45 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    TreeNode* buildTree(vector<int>& preorder, vector<int>& inorder) {
+        if(preorder.size()==0 || inorder.size()==0 || preorder.size()!=inorder.size()){
+            return nullptr;
+        }
+        TreeNode* root=constructBinaryTree(0,preorder.size()-1,0,inorder.size()-1,preorder,inorder);
+
+        return root;
+    }
+    TreeNode* constructBinaryTree(int preStart,int preEnd,int inStart,int inEnd,vector<int>& preorder,vector<int>& inorder){
+        TreeNode* root = new TreeNode(preorder[preStart]);
+        if(preStart == preEnd){
+            if(inStart == inEnd && preorder[preStart]==inorder[inStart]){
+                return root;
+            }else{
+                //throw std::exception("Invaild input.");
+            }
+        }
+        int inRoot = inStart;
+        while(inRoot<=inEnd && inorder[inRoot]!=root->val){
+            inRoot++;
+        }
+        if(inRoot>inEnd && inorder[inRoot]!=root->val){
+            //throw std::exception("Invaild input.");
+        }
+        int lengthOfLeft = inRoot-inStart;
+        if(lengthOfLeft>=1){
+            root->left = constructBinaryTree(preStart+1,preStart+lengthOfLeft,inStart,inRoot-1,preorder,inorder);
+        }
+        if(preStart + lengthOfLeft <preEnd){
+            root->right = constructBinaryTree(preStart+lengthOfLeft+1,preEnd,inRoot+1,inEnd,preorder,inorder);
+        }
+        return root;
+    }
+};

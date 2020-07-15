@@ -1,0 +1,42 @@
+class Solution {
+public:
+    int findRepeatNumber(vector<int>& nums) {
+        int len = nums.size();
+        int count;
+        if(len==0){
+            return false;
+        }
+        int end=len-1;
+        int start =0;
+        while(end>=start){
+            int middle=((end-start)>>1)+start;
+            count=countRange(nums,len,start,middle);
+            if(end==start){
+                if(count>1){
+                    return start;
+                }else{
+                    break;
+                }
+            }
+            if(count>(middle-start+1)){
+                end=middle;
+            }else{
+                start=middle+1;
+            }
+        }
+        return -1;
+    }
+
+    private: int countRange(vector<int>& numbers,int length,int start,int end){
+            if(length==0){
+                return 0;
+            }
+            int j=0;
+            for(int i=0;i<length;i++){
+                if(numbers[i]<=end && numbers[i]>=start){
+                    j++;
+                }
+            }
+            return j;
+        }
+};

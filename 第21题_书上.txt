@@ -1,0 +1,25 @@
+class Solution {
+public:
+    vector<int> exchange(vector<int>& nums) {
+        if(nums.size()<=1){
+            return nums;
+        }
+        vector<int>::iterator it1 = nums.begin();
+        vector<int>::iterator it2 = nums.end()-1;
+        int temp;
+        while(it2>it1){
+            while((*it1)%2==1&&it1<nums.end()-1){
+                it1++;
+            }
+            while((*it2)%2==0&&it2>=nums.begin()+1){
+                it2--;
+            }
+            if(it2>it1){
+                temp=*it1;
+                *it1=*it2;
+                *it2=temp;
+            }
+        }
+        return nums;
+    }
+};

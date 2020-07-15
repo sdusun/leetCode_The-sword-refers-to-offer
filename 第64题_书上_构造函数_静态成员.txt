@@ -1,0 +1,29 @@
+class toolClass{
+public:
+    toolClass(){
+        currentNum++;
+        sum+=currentNum;
+    }
+    static void reset(){
+        currentNum=0;
+        sum=0;
+    }
+    static int getSum(){
+        return sum;
+    }
+private:
+    static int currentNum;
+    static int sum;
+};
+int toolClass::currentNum=0;
+int toolClass::sum=0;
+class Solution {
+public:
+    int sumNums(int n) {
+        toolClass::reset();
+        toolClass* p=new toolClass[n];
+        delete[] p;
+        p = nullptr;
+        return toolClass::getSum();;
+    }
+};

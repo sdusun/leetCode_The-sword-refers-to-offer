@@ -1,0 +1,30 @@
+class Solution {
+public:
+    vector<vector<int>> findContinuousSequence(int target) {
+        vector<vector<int>> result;
+        vector<int> temp;
+        if(target<3)
+            return result;
+        int small=1;
+        int big=2;
+        int currentSum=small+big;
+        while(small<(target+1)/2){
+            if(currentSum==target){
+                temp.clear();
+                for(int i=small;i<=big;i++){
+                    temp.push_back(i);
+                }
+                result.push_back(temp);
+                currentSum-=small;
+                small++;
+            }else if(currentSum<target){
+                big++;
+                currentSum+=big;
+            }else{
+                currentSum-=small;
+                small++;
+            }
+        }
+        return result;
+    }
+};

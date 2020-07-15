@@ -1,0 +1,45 @@
+class Solution {
+public:
+    int sortCore(vector<int>& nums,int start,int end){
+        int index=rand()%(end-start+1)+start;
+        int temp=nums[end];
+        nums[end]=nums[index];
+        nums[index]=temp;
+        int small=start-1;
+        for(index=start;index<end;index++){
+            if(nums[index]<nums[end]){
+                small++;
+                if(small!=index){
+                    temp=nums[small];
+                    nums[small]=nums[index];
+                    nums[index]=temp;
+                }
+            }
+        }
+        small++;
+        temp=nums[end];
+        nums[end]=nums[small];
+        nums[small]=temp;
+        return small;
+    }
+    int majorityElement(vector<int>& nums) {
+        if(nums.size()<=1){
+            return nums[0];
+        }
+        srand((unsigned)time(NULL));
+        int middle=nums.size()/2;
+        int start=0;
+        int end=nums.size()-1;
+        int index=sortCore(nums,start,end);
+        while(index!=middle){
+            if(index>middle){
+                end=index-1;
+                index=sortCore(nums,start,end);
+            }else{
+                start=index+1;
+                index=sortCore(nums,start,end);
+            }
+        }
+        return nums[middle];
+    }
+};

@@ -1,0 +1,45 @@
+class Solution {
+public:
+    vector<int> spiralOrder(vector<vector<int>>& matrix) {
+        
+        if(matrix.size()==0||matrix[0].size()==0){
+            vector<int> re;
+            return re;
+        }
+        int start=0;
+        int index=0;
+        vector<int> result(matrix.size()*matrix[0].size());
+        while(2*start<matrix.size()&&2*start<matrix[0].size()){
+            print_vector(matrix,result,matrix.size(),matrix[0].size(),start,index);
+            start++;
+        }
+        return result;
+
+    }
+    void print_vector(vector<vector<int>>& matrix, vector<int>& result,int row,int col,int start,int& index){
+        int endOfCol = col-1-start;
+        int endOfRow = row-1-start;
+        for(int i=start;i<=endOfCol;i++){
+            result[index]=matrix[start][i];
+            index++;
+        }
+        if(endOfRow>start){
+            for(int i=start+1;i<=endOfRow;i++){
+                result[index]=matrix[i][endOfCol];
+                index++;
+            }
+        }
+        if(endOfCol>start&&endOfRow>start){
+            for(int i=endOfCol-1;i>=start;i--){
+                result[index]=matrix[endOfRow][i];
+                index++;
+            }
+        }
+        if(endOfRow-1>start&&endOfCol>start){
+            for(int i=endOfRow-1;i>start;i--){
+                result[index]=matrix[i][start];
+                index++;
+            }
+        }
+    }
+};

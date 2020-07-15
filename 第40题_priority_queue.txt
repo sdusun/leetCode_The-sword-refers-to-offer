@@ -1,0 +1,28 @@
+class Solution {
+public:
+    vector<int> getLeastNumbers(vector<int>& arr, int k) {
+        vector<int>result(k,0);
+        if(arr.size()==0||k==0){
+            return result;
+        }
+        if(k>=arr.size()){
+            return arr;
+        }
+        std::priority_queue<int> queOfarr;
+        for(int i=0;i<k;i++){
+            queOfarr.push(arr[i]);
+        }
+        for(int i=k;i<arr.size();i++){
+            if(arr[i]<queOfarr.top()){
+                queOfarr.pop();
+                queOfarr.push(arr[i]);
+            }
+        }
+        for(int i=0;i<k;i++){
+            result[i]=queOfarr.top();
+            queOfarr.pop();
+        }
+        return result;
+
+    }
+};

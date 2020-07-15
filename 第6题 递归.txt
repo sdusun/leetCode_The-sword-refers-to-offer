@@ -1,0 +1,52 @@
+别人：
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    vector<int> res;
+    vector<int> reversePrint(ListNode* head) {
+        if(head == nullptr)
+            return res;
+        reversePrint(head->next);
+        res.push_back(head->val);
+        return res;
+
+
+    }
+};
+
+我的：
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    vector<int> result;
+    vector<int> reversePrint(ListNode* head) {
+        if(head==nullptr){
+            return result;
+        }
+
+        if(head->next!=nullptr){
+            reversePrint(head->next);
+        }
+
+        if(head!=nullptr){
+            result.push_back(head->val);
+        }
+        
+        return result;
+
+    }
+};

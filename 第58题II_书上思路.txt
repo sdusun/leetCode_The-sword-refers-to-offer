@@ -1,0 +1,23 @@
+class Solution {
+public:
+    string reverseLeftWords(string s, int n) {
+        if(s.length()==0||n>=s.length())
+            return s;
+        reverseString(s,0,n-1);
+        reverseString(s,n,s.length()-1);
+        reverseString(s,0,s.length()-1);
+        return s;
+    }
+    void reverseString(string& s,int start,int end){
+        if(start>=end)
+            return;
+        char temp;
+        while(start<end){
+            temp=s[start];
+            s[start]=s[end];
+            s[end]=temp;
+            start++;
+            end--;
+        }
+    }
+};

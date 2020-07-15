@@ -1,0 +1,47 @@
+class Solution {
+public:
+    vector<int> exchange(vector<int>& nums) {
+        if(nums.size()<=1){
+            return nums;
+        }
+        QuickSort(nums,0,nums.size()-1);
+        return nums;
+    }
+    void QuickSort(vector<int>& nums,int start,int end){
+        if(start==end){
+            return;
+        }
+        int index = Sort(nums,start,end);
+        if(index>start)
+            QuickSort(nums,start,index-1);
+        if(index<end)
+            QuickSort(nums,index+1,end);
+    }
+    int Sort(vector<int>& nums,int start,int end){
+        int i,temp;
+        int small=start-1;
+        for(i=start;i<end;i++){
+            if(nums[i]%2==0){
+                break;
+            }
+        }
+        temp=nums[i];
+        nums[i]=nums[end];
+        nums[end]=temp;
+        for(i=start;i<end;i++){
+            if(nums[i]%2==1){
+                small++;
+                if(small!=i){
+                    temp=nums[i];
+                    nums[i]=nums[small];
+                    nums[small]=temp;
+                }
+            }
+        }
+        small++;
+        temp=nums[end];
+        nums[end]=nums[small];
+        nums[small]=temp;
+        return small;
+    }
+};

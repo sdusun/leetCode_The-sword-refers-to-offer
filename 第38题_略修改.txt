@@ -1,0 +1,28 @@
+class Solution {
+public:
+    vector<string> permutation(string s) {
+        if(s.length()==0){
+            vector<string> result;
+            return result;
+        }
+        vector<string> result;
+        totalRange(s,0,result);
+        return result;
+    }
+    void totalRange(string& s,int start,vector<string>& result){
+        if(start==s.length()){
+            result.push_back(s);
+            return;
+        }
+        vector<int> visit(26,0);
+        for(int i=start;i<s.length();i++){
+            int vis=s[i]-'a';
+            if(visit[vis]==0){
+                std::swap(s[i],s[start]);
+                totalRange(s,start+1,result);
+                visit[vis]=1;
+                std::swap(s[i],s[start]);
+            }
+        }
+    }
+};

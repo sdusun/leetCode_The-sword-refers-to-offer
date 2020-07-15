@@ -1,0 +1,20 @@
+class Solution {
+public:
+    string minNumber(vector<int>& nums) {
+        vector<string> strOfNums;
+        vector<int>::iterator it1;
+        for(it1=nums.begin();it1<nums.end();it1++){
+            strOfNums.push_back(to_string(*it1));
+        }
+        vector<string>::iterator it2;
+        sort(strOfNums.begin(),strOfNums.end(),compare);
+        string result;
+        for(it2=strOfNums.begin();it2<strOfNums.end();it2++){
+            result+=(*it2);
+        }
+        return result;
+    }
+    static int compare(string str1,string str2){
+        return str1+str2<str2+str1;
+    }
+};

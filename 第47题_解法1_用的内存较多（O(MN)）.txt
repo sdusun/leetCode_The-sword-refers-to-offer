@@ -1,0 +1,23 @@
+class Solution {
+public:
+    int maxValue(vector<vector<int>>& grid) {
+        int row=grid.size();
+        int col=grid[0].size();
+        vector<vector<int>> currentMax(row,vector<int>(col,0));
+        for(int i=0;i<row;i++){
+            for(int j=0;j<col;j++){
+                if(i==0 && j==0){
+                    currentMax[i][j]=grid[0][0];
+                }else if(i==0){
+                    currentMax[i][j]=grid[i][j]+currentMax[i][j-1];
+                }else if(j==0){
+                    currentMax[i][j]=grid[i][j]+currentMax[i-1][j];
+                }else{
+                    currentMax[i][j]=grid[i][j]+max(currentMax[i-1][j],currentMax[i][j-1]);
+                }
+            }
+        }
+        return currentMax[row-1][col-1];
+
+    }
+};

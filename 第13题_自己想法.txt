@@ -1,0 +1,32 @@
+class Solution {
+    int sum(int a){
+        int sum=0;
+        while(a){
+            sum+=a%10;
+            a/=10;
+        }
+        return sum;
+    }
+    void go(int m,int n,int k,int row,int col,vector<vector<int> >& vis,int& count){
+        if(row<0||col<0||row>=m||col>=n||vis[row][col]||(sum(row)+sum(col))>k){
+            return;
+        }
+        vis[row][col]=1;
+        count++;
+        go(m,n,k,row+1,col,vis,count);
+        go(m,n,k,row-1,col,vis,count);
+        go(m,n,k,row,col+1,vis,count);
+        go(m,n,k,row,col-1,vis,count);
+        return;
+    }
+public:
+    int movingCount(int m, int n, int k) {
+        if(k==0){
+            return 1;
+        }
+        int count=0;
+        vector<vector<int> > vis(m,vector<int>(n,0));
+        go(m,n,k,0,0,vis,count);
+        return count;
+    }
+};

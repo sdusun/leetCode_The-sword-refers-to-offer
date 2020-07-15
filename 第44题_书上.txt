@@ -1,0 +1,36 @@
+class Solution {
+public:
+    int findNthDigit(int n) {
+        int weiShu=1;
+        while(n>=0){
+            if(n<xWeiShuGeShu(weiShu)*weiShu){
+                return findNumber(n,weiShu);
+            }
+            n=n-xWeiShuGeShu(weiShu)*weiShu;
+            weiShu++;
+        }
+        return -1;
+    }
+    long long xWeiShuGeShu(int x){
+        if(x==1){
+            return 10;
+        }
+        long long result=(long long)pow(10,x-1)*9;
+        return result;
+    }
+    int findNumber(int n,int weiShu){
+        int number=begin(weiShu)+n/weiShu;
+        int countFromRight = weiShu-n%weiShu;
+        for(int i=1;i<countFromRight;i++){
+            number/=10;
+        }
+        return number%10;
+
+    }
+    int begin(int weiShu){
+        if(weiShu==1){
+            return 0;
+        }
+        return pow(10,weiShu-1);
+    }
+};

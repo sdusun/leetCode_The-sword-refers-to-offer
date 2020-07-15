@@ -1,0 +1,30 @@
+class Solution {
+public:
+    int singleNumber(vector<int>& nums) {
+        bool is_invaildInput = false;
+        if(nums.size()==0){
+            is_invaildInput=true;
+            return -1;
+        }
+        vector<int> numberOfEachBit(32,0);
+        int bit=0;
+        for(int i=0;i<nums.size();i++){
+            unsigned int toolNumber = 1;
+            for(int j=0;j<32;j++){
+                bit=nums[i] & toolNumber;
+                if(bit !=0){
+                    numberOfEachBit[j]++;
+                }
+                toolNumber=toolNumber<<1;
+            }
+        }
+        int result = 0;
+        for(int k=31;k>=0;k--){
+            result=result<<1;
+            if(numberOfEachBit[k]%3!=0){
+                result=result+1;
+            }
+        }
+        return result;
+    }
+};

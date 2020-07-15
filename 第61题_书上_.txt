@@ -1,0 +1,27 @@
+class Solution {
+public:
+    bool isStraight(vector<int>& nums) {
+        if(nums.size()!=5)
+            return false;
+        sort(nums.begin(),nums.end());
+        int countOfZero = 0;
+        int countOfGap = 0;
+        int i=0;
+        for(i;i<5;i++){
+            if(nums[i]==0){
+                countOfZero++;
+            }else{
+                break;
+            }
+        }
+        int large = i+1;
+        while(large<5){
+            if(nums[large]==nums[i])
+                return false;
+            countOfGap+=(nums[large]-nums[i]-1);
+            i++;
+            large++;
+        }   
+        return (countOfZero>=countOfGap)?true:false;
+    }
+};

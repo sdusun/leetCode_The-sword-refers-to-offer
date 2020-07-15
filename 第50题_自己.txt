@@ -1,0 +1,30 @@
+class Solution {
+public:
+    char firstUniqChar(string s) {
+        if(s.length()==0)
+            return ' ';
+        vector<int> has_showup(26,-1);
+        for(int i=0;i<s.length();i++){
+            if(has_showup[s[i]-'a']>-1){
+                has_showup[s[i]-'a']=s.length();
+            }else{
+                has_showup[s[i]-'a']=i;
+            }
+        }
+        int zimu=s.length();
+        int result=-1;
+        for(int j=0;j<26;j++){
+            if(has_showup[j]>-1 && has_showup[j]<s.length()){
+                if(has_showup[j]<zimu){
+                    zimu=has_showup[j];
+                    result=j;
+                }
+            }
+        }
+        if(result==-1){
+            return ' ';
+        }else{
+            return result+'a';
+        }
+    }
+};

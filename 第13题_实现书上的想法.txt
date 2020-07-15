@@ -1,0 +1,37 @@
+class Solution {
+public:
+    int movingCount(int m, int n, int k) {
+        int result=0;
+        vector<vector<bool>>visit(m,vector<bool>(n,0));
+
+        result=move(m,n,0,0,k,visit);
+
+        return result;
+
+    }
+
+    int move(int rows,int cols,int row,int col,int k,vector<vector<bool>>& vis){
+        int count=0;
+        if(check(rows,cols,row,col,k,vis)){
+            vis[row][col]=true;
+            count=1+move(rows,cols,row+1,col,k,vis)+move(rows,cols,row,col+1,k,vis)+move(rows,cols,row-1,col,k,vis)+move(rows,cols,row,col-1,k,vis);
+        }
+        return count;
+    }
+
+    bool check(int rows,int cols,int row,int col,int k,vector<vector<bool>>& vis){
+        if(row>=0 && col>=0 && row<rows && col<cols && getsum(row)+getsum(col)<=k && !vis[row][col]){
+            return true;
+        }
+        return false;
+    }
+
+    int getsum(int x){
+        int sum=0;
+        while(x>0){
+            sum+=x%10;
+            x/=10;
+        }
+        return sum;
+    }
+};

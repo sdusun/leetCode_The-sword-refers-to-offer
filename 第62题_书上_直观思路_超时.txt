@@ -1,0 +1,30 @@
+class Solution {
+public:
+    int lastRemaining(int n, int m) {
+        bool is_invaildInput = false;
+        if(n<1||m<1){
+            is_invaildInput = true;
+            return -1;
+        }
+        list<int> circle;
+        for(int i=0;i<n;i++){
+            circle.push_back(i);
+        }
+        list<int>::iterator it=circle.begin();
+        list<int>::iterator next=circle.begin();
+        while(circle.size()>1){
+            for(int i=1;i<m;i++){
+                it++;
+                if(it==circle.end())
+                    it=circle.begin();
+            }
+            next=++it;
+            if(next==circle.end())
+                next=circle.begin();
+            --it;
+            circle.erase(it);
+            it=next;
+        }
+        return *it;
+    }
+};

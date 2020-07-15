@@ -1,0 +1,40 @@
+int i;
+class Solution {
+public:
+    int i;
+    bool isNumber(string s) {
+        if(s==""){
+            return false;
+        }
+        goblank(s);
+        bool is_num = gonum(s);
+        if(s[i]=='.'){
+            ++i;
+            is_num = gounsignednum(s)||is_num;
+        }
+        if(s[i]=='E'||s[i]=='e'){
+            ++i;
+            is_num = is_num&&gonum(s);
+        }
+        goblank(s);
+        return is_num&&s[i]=='\0';
+    }
+    bool gonum(string s){
+        if(s[i]=='+'||s[i]=='-'){
+            i++;
+        }
+        return gounsignednum(s);
+    }
+    bool gounsignednum(string s){
+        int j=i;
+        while(s[i]!='\0'&&(s[i]>='0')&&('9'>=s[i])){
+            i++;
+        }
+        return i>j;
+    }
+    void goblank(string s){
+        while(s[i]==' '){
+            i++;
+        }
+    }
+};

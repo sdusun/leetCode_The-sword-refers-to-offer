@@ -1,0 +1,29 @@
+class Solution {
+public:
+    int movingCount(int m, int n, int k) {
+        if(m<=0 || n<=0 || k<0)
+            return -1;
+        int count = 0;
+        vector<bool> visit(m*n,false);
+        findRange(count,visit,m,n,k,0,0); 
+        return count;
+    }
+    void findRange(int& count,vector<bool>& visit,int row,int col,int k,int curRow,int curCol){
+        if(curRow>=row || curCol>=col || sumOfBit(curRow)+sumOfBit(curCol)>k || visit[curRow*col+curCol]){
+            return;
+        }
+        visit[curRow*col+curCol] = true;
+        count++;
+        findRange(count,visit,row,col,k,curRow+1,curCol);
+        findRange(count,visit,row,col,k,curRow,curCol+1);
+        return;
+    }
+    int sumOfBit(int x){
+        int temp =0;
+        while(x>0){
+            temp+=x%10;
+            x/=10;
+        }
+        return temp;
+    }
+};

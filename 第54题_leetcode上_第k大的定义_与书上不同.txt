@@ -1,0 +1,42 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    int kthLargest(TreeNode* root, int k) {
+        bool is_invaild=false;
+        if(root==nullptr){
+            is_invaild=true;
+            return -1;
+        }
+        vector<int> temp;
+        inOrder(root,temp);
+        return temp[temp.size()-k];
+    }
+    void inOrder(TreeNode* root,vector<int>& temp){
+        stack<pair<TreeNode*,bool>> s;
+        s.push(make_pair(root,false));
+        bool visited;
+        TreeNode* current;
+        while(!s.empty()){
+            current=s.top().first;
+            visited=s.top().second;
+            s.pop();
+            if(current==nullptr)
+                continue;
+            if(visited){
+                temp.push_back(current->val);
+            }else{
+                s.push(make_pair(current->right,false));
+                s.push(make_pair(current,true));
+                s.push(make_pair(current->left,false));
+            }
+        }
+    }
+};

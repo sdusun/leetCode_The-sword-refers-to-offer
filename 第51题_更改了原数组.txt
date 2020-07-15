@@ -1,0 +1,45 @@
+class Solution {
+public:
+    int reversePairs(vector<int>& nums) {
+        if(nums.size()<2)
+            return 0;
+        vector<int> temp(nums);
+        int result = mergeSort(nums,0,nums.size()-1,temp);
+        return result;
+    }
+    int mergeSort(vector<int>& copy,int start,int end,vector<int>& temp){
+        if(start==end){
+            return 0;
+        }
+        int mid=start+(end-start)/2;
+        int left=mergeSort(copy,start,mid,temp);
+        int right=mergeSort(copy,mid+1,end,temp);
+        if(copy[mid]<=copy[mid+1]){
+            return left+right;
+        }
+        int current=mergeSortCore(copy,start,mid,end,temp);
+        return left+right+current;
+    }
+    int mergeSortCore(vector<int>& copy,int start,int mid,int end,vector<int>& temp){
+        int i=start;
+        int j=mid+1;
+        int k=start;
+        int count=0;
+        for(k;k<=end;k++){
+            if(i==mid+1){
+                temp[k]=copy[j++];
+            }else if(j==end+1){
+                temp[k]=copy[i++];
+            }else if(copy[i]<=copy[j]){
+                temp[k]=copy[i++];
+            }else{
+                temp[k]=copy[j++];
+                count+=(mid-i+1);
+            }
+        }
+        for(k=start;k<=end;k++){
+            copy[k]=temp[k];
+        }
+        return count;
+    }
+};

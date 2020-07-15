@@ -1,0 +1,29 @@
+class Solution {
+public:
+    vector<int> singleNumbers(vector<int>& nums) {
+        if(nums.size()==0){
+            vector<int> result;
+            return result;
+        }
+        int xorOfAll=0;
+        for(int i=0;i<nums.size();i++){
+            xorOfAll^=nums[i];
+        }
+        int div = 1;
+        while((xorOfAll&div)==0){
+            div=div<<1;
+        }
+        int re1=0;
+        int re2=0;
+        for(int i=0;i<nums.size();i++){
+            if(nums[i] & div){
+                re1^=nums[i];
+            }else{
+                re2^=nums[i];
+            }
+        }
+        vector<int> result={re1,re2};
+        return result;
+        
+    }
+};

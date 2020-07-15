@@ -1,0 +1,56 @@
+class Solution {
+public:
+    bool exist(vector<vector<char>>& board, string word) {
+        int row = board.size();
+        int col = board[0].size();
+        if(row==0 || col==0 || word.length()==0){
+            return false;
+        }
+        vector<vector<bool>> visit(row,vector<bool>(col,false));
+        for(int i=0;i<row;i++){
+            for(int j=0;j<col;j++){
+                if(findPath(i,j,row,col,word,0,visit,board)){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+    bool findPath(int curRow,int curCol,int row,int col,string& word,int curStrLength,vector<vector<bool>>& visit,vector<vector<char>>& board){
+        
+        if(word[curStrLength]!=board[curRow][curCol]){
+            return false;
+        }else{
+            if(curStrLength==word.length()-1){
+                visit[curRow][curCol]=true;
+                return true;
+            }else{
+                bool hasPath1 = false;
+                bool hasPath2 = false;
+                bool hasPath3 = false;
+                bool hasPath4 = false;
+                visit[curRow][curCol]=true;
+                if(curRow<row-1 && !visit[curRow+1][curCol]){
+                    hasPath1 = findPath(curRow+1,curCol,row,col,word,curStrLength+1,visit,board);
+                }
+                if(curCol<col-1 && !visit[curRow][curCol+1]){
+                    hasPath2 = findPath(curRow,curCol+1,row,col,word,curStrLength+1,visit,board);
+                }
+                if(curRow>0 && !visit[curRow-1][curCol]){
+                    hasPath3 = findPath(curRow-1,curCol,row,col,word,curStrLength+1,visit,board);
+                }
+                if(curCol>0 && !visit[curRow][curCol-1]){
+                    hasPath4 = findPath(curRow,curCol-1,row,col,word,curStrLength+1,visit,board);
+                }
+                bool hasPath = hasPath1||hasPath2||hasPath3||hasPath4;
+                if(!hasPath){
+                    visit[curRow][curCol]=false;
+                    return false;
+                }else{
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+};

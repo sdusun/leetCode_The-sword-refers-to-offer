@@ -1,0 +1,42 @@
+class Solution {
+    
+public:
+
+    bool exist(vector<vector<char>>& board, string word) {
+        if(board.size()==0){
+            return false;
+        }
+        int rows=board.size();
+        int cols=board[0].size();
+        vector<vector<bool>>visit(board.size(),vector<bool>(board[0].size(),false));
+        int pathlen=0;
+        for(int i=0;i<rows;i++){
+            for(int j=0;j<cols;j++){
+                if(board[i][j]==word[0]){
+                    if(find(board,word,visit,pathlen,rows,cols,i,j)){
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+    bool find(vector<vector<char>>& target,string str,vector<vector<bool>>& vis,int len,int r,int c,int row,int col){
+        if(str[len]=='\0'){
+            return true;
+        }
+        bool haspath=false;
+        if(row<0 || col<0 || row>=r ||col>=c|| target[row][col]!=str[len] || vis[row][col]){
+            return false;
+        }else{
+            ++len;
+            vis[row][col]=true;
+            haspath = find(target,str,vis,len,r,c,row+1,col)||find(target,str,vis,len,r,c,row,col+1)||find(target,str,vis,len,r,c,row-1,col)||find(target,str,vis,len,r,c,row,col-1);
+        }
+        if(!haspath){
+            --len;
+            vis[row][col]=false;
+        }
+        return haspath;
+    }
+};

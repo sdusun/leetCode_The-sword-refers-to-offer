@@ -1,0 +1,35 @@
+class Solution {
+public:
+    int cuttingRope(int n) {
+        if(n==2){
+            return 1;
+        }
+        if(n<2){
+            return 0;
+        }
+        if(n==3){
+            return 2;
+        }
+        int* res = new int[n+1];
+        res[0]=0;
+        res[1]=1;
+        res[2]=2;
+        res[3]=3;
+        int temp=0;
+        int max;
+        for(int i=4;i<=n;i++){
+            max=0;
+            for(int j=1;j<=i/2;j++){
+                temp=res[j]*res[i-j];
+                if(temp>max){
+                    max=temp;
+                }
+                res[i]=max;
+            }
+           
+        }
+        max = res[n];
+        delete[] res;
+        return max;
+    }
+};

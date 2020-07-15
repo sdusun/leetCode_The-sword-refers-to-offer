@@ -1,0 +1,37 @@
+class Solution {
+public:
+    int lengthOfLongestSubstring(string s) {
+        if(s.length()==0){
+            return 0;
+        }
+        int currentLength=0;
+        int maxLength=0;
+        int preShowUp=-1;
+        vector<int>ziMu(95,-1);
+        for(int i=0;i<s.length();i++){
+            if(s[i]==' '){
+                preShowUp=ziMu[94];
+            }else{
+                preShowUp=ziMu[s[i]-'!'];
+            }
+
+            if(preShowUp<0||i-preShowUp>currentLength){
+                currentLength++;
+            }else{
+                if(currentLength>maxLength)
+                    maxLength=currentLength;
+                currentLength=i-preShowUp;
+            }
+            if(s[i]==' '){
+                ziMu[94]=i;
+            }else{
+                ziMu[s[i]-'!']=i;
+            }
+            
+        }
+        if(currentLength>maxLength)
+            maxLength=currentLength;
+        return maxLength;
+
+    }
+};

@@ -1,0 +1,32 @@
+class Solution {
+public:
+    bool validateStackSequences(vector<int>& pushed, vector<int>& popped) {
+        if(pushed.size()!=popped.size()){
+            return false;
+        }
+
+        stack<int> re;
+        int len=pushed.size();
+        vector<int>::iterator iterator1=pushed.begin();
+        vector<int>::iterator iterator2=popped.begin();
+        while(iterator2<popped.end()){
+            while(re.size()==0||*iterator2!=re.top()){
+                if(iterator1==pushed.end()){
+                    break;
+                }
+                re.push(*iterator1);
+                iterator1++;
+            }
+            if(*iterator2!=re.top()){
+                break;
+            }else{
+                re.pop();
+                iterator2++;
+            }
+        }
+        if(iterator2==popped.end()){
+            return true;
+        }
+        return false;
+    }
+};

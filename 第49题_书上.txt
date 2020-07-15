@@ -1,0 +1,30 @@
+class Solution {
+public:
+    int nthUglyNumber(int n) {
+        if(n<=0){
+            return 0;
+        }
+        vector<int> uglyNumberList(n);
+        uglyNumberList[0]=1;
+        vector<int>::iterator it2=uglyNumberList.begin();
+        vector<int>::iterator it3=uglyNumberList.begin();
+        vector<int>::iterator it5=uglyNumberList.begin();
+        int nextUglyNumber = 1;
+        while(nextUglyNumber<n){
+            uglyNumberList[nextUglyNumber]=myMin((*it2)*2,(*it3)*3,(*it5)*5);
+            while((*it2)*2<=uglyNumberList[nextUglyNumber])
+                it2++;
+            while((*it3)*3<=uglyNumberList[nextUglyNumber])
+                it3++;
+            while((*it5)*5<=uglyNumberList[nextUglyNumber])
+                it5++;
+
+            nextUglyNumber++;
+        }
+        return uglyNumberList[nextUglyNumber-1];
+    }
+    int myMin(int a,int b,int c){
+        int temp=min(a,b);
+        return min(temp,c);
+    }
+};

@@ -1,0 +1,35 @@
+class Solution {
+public:
+    bool verifyPostorder(vector<int>& postorder) {
+        if(postorder.size()==0){
+            return true;
+        }
+        return Judge(postorder);
+    }
+    bool Judge(vector<int>& postorder){
+        int root=postorder[postorder.size()-1];
+        int i=0;
+        for(i;i<postorder.size()-1;i++){
+            if(postorder[i]>root){
+                break;
+            }
+        }
+        int j=i;
+        for(j;j<postorder.size()-1;j++){
+            if(postorder[j]<root){
+                return false;
+            }
+        }
+        bool left_isPost=true;
+        if(i>0){
+            vector<int> left(postorder.begin(),postorder.begin()+i);
+            left_isPost=Judge(left);
+        }
+        bool right_isPost=true;
+        if(i<postorder.size()-1){
+            vector<int> right(postorder.begin()+i,postorder.end()-1);
+            right_isPost=Judge(right);
+        }
+        return left_isPost&&right_isPost;
+    }
+};

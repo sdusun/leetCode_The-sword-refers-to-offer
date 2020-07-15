@@ -1,0 +1,32 @@
+class Solution {
+public:
+    bool exist(vector<vector<char>>& board, string word) {
+        if(board.size()==0 || board[0].size()==0 || word.length()==0){
+            return false;
+        }
+        for(int i=0;i<board.size();i++){
+            for(int j=0;j<board[0].size();j++){
+                if(findPath(i,j,word,0,board)){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+    bool findPath(int curRow,int curCol,string& word,int curStrLength,vector<vector<char>>& board){
+        if(curRow<0||curRow>=board.size()||curCol<0||curCol>=board[0].size()||board[curRow][curCol]!=word[curStrLength]){
+            return false;
+        }
+        if(curStrLength == word.length()-1){
+            return true;
+        }
+        char temp = board[curRow][curCol];
+        board[curRow][curCol]='\0';
+        bool hasPath=findPath(curRow+1,curCol,word,curStrLength+1,board)||findPath(curRow,curCol+1,word,curStrLength+1,board)||findPath(curRow,curCol-1,word,curStrLength+1,board)||findPath(curRow-1,curCol,word,curStrLength+1,board);
+        if(hasPath){
+            return true;
+        }
+        board[curRow][curCol]=temp;
+        return false;
+    }
+};

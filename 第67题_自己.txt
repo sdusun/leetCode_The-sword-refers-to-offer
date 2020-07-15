@@ -1,0 +1,28 @@
+class Solution {
+public:
+    int strToInt(string str) {
+        int it = str.find_first_not_of(' ');
+        if(it==-1 || (str[it]!='+'&& str[it]!='-' && (str[it]-'0'<0 || str[it]-'9'>0))){
+            return 0;
+        }
+        bool is_fushu = false;
+        if(str[it]=='+'){
+            it++;
+        }else if(str[it]=='-'){
+            is_fushu = true;
+            it++;
+        }
+        long long sum = 0;
+        while(it<str.length() && str[it]-'0'>=0 && str[it]-'9'<=0){
+            sum=sum*10+str[it]-'0';
+            if(sum>INT_MAX){
+                return is_fushu?INT_MIN:INT_MAX;
+            }
+            it++;
+        }
+        if(is_fushu){
+            sum=0-sum;
+        }
+        return sum;
+    }
+};

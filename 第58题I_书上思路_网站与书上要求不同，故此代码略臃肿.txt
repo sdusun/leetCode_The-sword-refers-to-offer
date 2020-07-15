@@ -1,0 +1,40 @@
+class Solution {
+public:
+    string reverseWords(string s) {
+        s.erase(0,s.find_first_not_of(' '));
+        s.erase(s.find_last_not_of(' ')+1);
+        if(s.length()==0)
+            return s;
+        reverseString(s,0,s.length()-1);
+        int start=0;
+        int end=0;
+        string result;
+        while(s[start]!='\0'){
+            if(s[start]==' '){
+                start++;
+                end++;
+            }else if(s[end]==' '||s[end]=='\0'){
+                reverseString(s,start,end-1);
+                result=result+s.substr(start,end-start)+' ';
+                start=end;
+            }else{
+                end++;
+            }
+        }
+        result.erase(result.size()-1);
+        return result;
+
+    }
+    void reverseString(string& s,int start,int end){
+        if(start>=end)
+            return;
+        char temp;
+        while(start<end){
+            temp=s[start];
+            s[start]=s[end];
+            s[end]=temp;
+            start++;
+            end--;
+        }
+    }
+};

@@ -1,0 +1,41 @@
+int pointer;
+class Solution {
+public:
+    int pointer;
+    bool isNumber(string s) {
+        if(s=="")return -1;
+        scanSpace(s);
+        bool numeric=scanInteger(s);
+        if(s[pointer]=='.'){
+            ++pointer;
+            numeric=scanUnsignedInteger(s)||numeric;
+            //用||因为整数、小数部分有一即可
+        }
+        if(s[pointer]=='e'||s[pointer]=='E'){
+            ++pointer;
+            numeric=numeric&&scanInteger(s);
+        }
+        scanSpace(s);
+        return numeric&&s[pointer]=='\0';
+    }
+    bool scanInteger(string s){
+        if(s[pointer]=='+'||s[pointer]=='-')
+            pointer++;
+        return scanUnsignedInteger(s);
+    }
+    bool scanUnsignedInteger(string s){
+        int before=pointer;
+        while(s[pointer]!='\0'&&s[pointer]<='9'&&s[pointer]>='0'){
+            pointer++;
+        }
+        return pointer>before;
+    }
+    void scanSpace(string s){
+        while(s[pointer]==' ')pointer++;
+    }
+};
+
+作者：rt-huang
+链接：https://leetcode-cn.com/problems/biao-shi-shu-zhi-de-zi-fu-chuan-lcof/solution/cshu-shang-de-jian-ji-dai-ma-by-rt-huang/
+来源：力扣（LeetCode）
+著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。

@@ -1,0 +1,45 @@
+class Solution {
+public:
+    vector<int> getLeastNumbers(vector<int>& arr, int k) {
+        if(arr.size()==0||k==0){
+            vector<int> result;
+            return result;
+        }
+        if(k>=arr.size()){
+            return arr;
+        }
+        srand((unsigned)time(NULL));
+        select_k(arr,0,arr.size()-1,k);
+        vector<int> result(arr.begin(),arr.begin()+k);
+        return result;
+    }
+    int core(vector<int>& arr,int start,int end){
+        int index=rand()%(end-start+1)+start;
+        swap(arr[end],arr[index]);
+        int small=start-1;
+        for(int i=start;i<end;i++){
+            if(arr[i]<arr[end]){
+                small++;
+                if(small!=i){
+                    swap(arr[small],arr[i]);
+                }
+            }
+        }
+        small++;
+        swap(arr[small],arr[end]);
+        return small;
+    }
+    void select_k(vector<int>& arr,int start,int end,int k){
+        if(start>=end){
+            return;
+        }
+        int index=core(arr,start,end);
+        int num=index-start+1;
+        if(k==num) return;
+        if(k<num){
+            select_k(arr,start,index-1,k);
+        }else{
+            select_k(arr,index+1,end,k-num);
+        }
+    }
+};

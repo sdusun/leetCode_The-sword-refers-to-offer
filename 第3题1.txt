@@ -1,0 +1,30 @@
+class Solution {
+public:
+    int findRepeatNumber(vector<int>& nums) {
+        bool is_invaild = false;
+        if(nums.size()<1){
+            is_invaild = true;
+            return -1;
+        }
+        for(int i=0;i<nums.size();i++){
+            if(nums[i]<0 || nums[i]>=nums.size()){
+                is_invaild = true;
+                return -1;
+            }
+        }
+        int temp = 0;
+        for(int j=0;j<nums.size();j++){
+            if(nums[j]!=j){
+                if(nums[j]==nums[nums[j]]){
+                    return nums[j];
+                }
+                temp = nums[nums[j]];
+                nums[nums[j]] = nums[j];
+                nums[j] = temp;
+                j--;
+            }
+        }
+        return -1;
+
+    }
+};

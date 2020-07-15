@@ -1,0 +1,51 @@
+class Solution {
+public:
+    int sumNums(int n) {
+        int result = 0;
+        int a = n;
+        int b = n+1;
+
+        (b&1) && (result+=a);
+        b>>=1;
+        a<<=1;
+        (b&1) && (result+=a);
+        b>>=1;
+        a<<=1;
+        (b&1) && (result+=a);
+        b>>=1;
+        a<<=1;
+        (b&1) && (result+=a);
+        b>>=1;
+        a<<=1;
+        (b&1) && (result+=a);
+        b>>=1;
+        a<<=1;
+        (b&1) && (result+=a);
+        b>>=1;
+        a<<=1;
+        (b&1) && (result+=a);
+        b>>=1;
+        a<<=1;
+        (b&1) && (result+=a);
+        b>>=1;
+        a<<=1;
+        (b&1) && (result+=a);
+        b>>=1;
+        a<<=1;
+        (b&1) && (result+=a);
+        b>>=1;
+        a<<=1;
+        (b&1) && (result+=a);
+        b>>=1;
+        a<<=1;
+        (b&1) && (result+=a);
+        b>>=1;
+        a<<=1;
+        (b&1) && (result+=a);
+        b>>=1;
+        a<<=1;
+        (b&1) && (result+=a);
+
+        return result>>1;
+    }
+};
