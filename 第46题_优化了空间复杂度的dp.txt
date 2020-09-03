@@ -1,0 +1,19 @@
+class Solution {
+public:
+    int translateNum(int num) {
+        string s = to_string(num);
+        int pre=1;
+        int cur=1;
+        int next=0;
+        for(int i=1;i<s.length();i++){
+            next=cur;
+            string temp=s.substr(i-1,2);
+            if(temp>="10"&&temp<="25"){
+                next+=pre;
+            }
+            pre=cur;
+            cur=next;
+        }
+        return cur;
+    }    
+};
